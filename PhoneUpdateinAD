@@ -1,0 +1,11 @@
+<# Script to bulk update the telephonenumber field with RingCentral numbers in AD
+The file name should be changed to the appropriate name
+#>
+$UsersFromCSV = Import-Csv -Path c:\scripts\userstelephony.csv
+foreach ($user in $UsersFromCSV) {
+Write-Output $User
+    $Attributes = @{
+        Telephonenumber = $User.Telephonenumber
+     }
+Set-ADUser -Identity $User.SamAccountName @Attributes
+}
